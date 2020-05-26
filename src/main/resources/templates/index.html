@@ -1,3 +1,5 @@
+<!-- TODO: 인덱스 페이지 따로 만들고 택배조회 페이지 만들기-->
+
 <!DOCTYPE HTML>
 <!--
 	Massively by HTML5 UP
@@ -40,7 +42,8 @@
                         <th>Comment</th>
                     </tr>
                     </thead>
-                    <!--/*@thymesVar id="musicPage" type="com.friendship41.song4music.web.data.BlockedPage"*/-->
+                    <!--/*@thymesVar id="getPage" type="com.friendship41.web.data.BlockedPage"*/-->
+                    <!--/*@thymesVar id="musicPage" type="com.friendship41.web.data.BlockedPage"*/-->
                     <tbody th:each="musicList : ${musicPage.getPage().getContent()}">
                     <tr>
                         <td th:text="${musicList.mListSeq}"></td>
@@ -62,7 +65,7 @@
             <!-- Footer -->
             <footer>
                 <div class="pagination">
-                    <!--/*@thymesVar id="musicPage" type="com.friendship41.song4music.web.data.BlockedPage"*/-->
+                    <!--/*@thymesVar id="musicPage" type="com.friendship41.web.data.BlockedPage"*/-->
                     <a th:href="@{/(page=${musicPage.prevNum})}" class="previous"
                        th:if="${musicPage.prevNum != -1}">Prev</a>
                     <th:block
@@ -140,7 +143,9 @@
                         <!-- Break -->
                         <div class="col-12">
                             <select name="mSortSeq" id="mSortSeq">
+                                <!--/*@thymesVar id="musicSortList" type="com.friendship41.web.repository.entity.MusicSort"*/-->
                                 <th:block th:each="musicSort : ${musicSortList}">
+                                    <!--/*@thymesVar id="mSortSeq" type="com.friendship41.web.repository.entity.MusicSort"*/-->
                                     <option th:value="${musicSort.mSortSeq}" th:text="${musicSort.mSortName}"></option>
                                 </th:block>
                             </select>
