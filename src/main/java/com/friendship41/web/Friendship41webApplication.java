@@ -1,4 +1,4 @@
-package com.friendship41.web.friendship41web;
+package com.friendship41.web;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,0 +1,180 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>메인페이지</title>
+    <th:block th:replace="fragments/commonHead"></th:block>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper" class="fade-in">
+
+    <th:block th:replace="fragments/IntroHeaderNav"></th:block>
+
+    <!-- Main -->
+    <div id="main">
+
+        <section class="post">
+
+            <header class="major">
+                <span id="indexHeaderDate" class="date">since 2020.05.12</span>
+                <h1>The Music List</h1>
+                <p>당신의 18번곡은 무엇인가요?</p>
+            </header>
+
+            <button class="primary icon solid fa-folder-plus"
+                    data-toggle="modal" data-target="#NewButtonModal">New</button>
+            <br/><br/>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Comment</th>
+                    </tr>
+                    </thead>
+                    <!--/*@thymesVar id="musicPage" type="com.friendship41.song4music.web.data.BlockedPage"*/-->
+                    <tbody th:each="musicList : ${musicPage.getPage().getContent()}">
+                    <tr>
+                        <td th:text="${musicList.mListSeq}"></td>
+                        <td><a th:text="${musicList.mListName}"
+                               data-toggle="modal" data-target="#MusicListModal"
+                               th:onclick="|javascript:clickMusicList('${musicList.mListSeq}')|"></a></td>
+                        <td th:text="${musicList.mListComment}"></td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td colspan="2"></td>
+                        <td></td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+            <!-- Footer -->
+            <footer>
+                <div class="pagination">
+                    <!--/*@thymesVar id="musicPage" type="com.friendship41.song4music.web.data.BlockedPage"*/-->
+                    <a th:href="@{/(page=${musicPage.prevNum})}" class="previous"
+                       th:if="${musicPage.prevNum != -1}">Prev</a>
+                    <th:block
+                            th:each="num : ${#numbers.sequence(musicPage.getStartBlock(),musicPage.getEndBlock())}">
+                        <th:block th:with="reqNum=${num}-1">
+                            <a th:href="@{/(page=${reqNum})}" class="page active"
+                               th:if="${num.equals(musicPage.getPage().getNumber()+1)}"
+                               th:text="${num}"></a>
+                            <a th:href="@{/(page=${reqNum})}" class="page"
+                               th:unless="${num.equals(musicPage.getPage().getNumber()+1)}"
+                               th:text="${num}"></a>
+                        </th:block>
+                    </th:block>
+                    <a th:href="@{/(page=${musicPage.nextNum})}" class="next"
+                       th:if="${musicPage.nextNum != -1}">Next</a>
+                </div>
+            </footer>
+        </section>
+    </div>
+
+
+    <th:block th:replace="fragments/copyright"></th:block>
+
+
+</div>
+
+<!-- newMusicModal -->
+<div class="modal fade" id="newButtonModal" tabindex="-1" role="dialog"
+     aria-labelledby="newButtonModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="newButtonModalLabel">New SongList</h5>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="/musics">
+                    <div class="row gtr-uniform">
+                        <div class="col-6 col-12-xsmall">
+                            <input type="text" name="mListName" value="" placeholder="Name" required/>
+                        </div>
+                        <div class="col-12">
+                            <textarea name="mListComment" placeholder="코멘트를 남겨주세요" rows="6"></textarea>
+                        </div>
+                        <!-- Break -->
+                        <div class="col-12">
+                            <ul class="actions">
+                                <li><input type="submit" value="Add MusicList" class="primary" /></li>
+                                <li><input type="reset" value="Close" data-dismiss="modal" /></li>
+                            </ul>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MusicListModal -->
+<div class="modal fade" id="MusicListModal" tabindex="-1" role="dialog"
+     aria-labelledby="MusicListModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="MusicListModalLabel">Modal title</h5>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="/musics">
+                    <div class="row gtr-uniform">
+                        <div class="col-6 col-12-xsmall">
+                            <input type="text" name="mMusicArtist" placeholder="Artist" required/>
+                        </div>
+                        <div class="col-6 col-12-xsmall">
+                            <input type="text" name="mListName" value="" placeholder="Name" />
+                        </div>
+                        <!-- Break -->
+                        <div class="col-12">
+                            <select name="mSortSeq" id="mSortSeq">
+                                <th:block th:each="musicSort : ${musicSortList}">
+                                    <option th:value="${musicSort.mSortSeq}" th:text="${musicSort.mSortName}"></option>
+                                </th:block>
+                            </select>
+                        </div>
+                        <!-- Break -->
+                        <div class="col-12">
+                            <textarea name="mListComment" placeholder="코멘트를 남겨주세요" rows="6"></textarea>
+                        </div>
+                        <!-- Break -->
+                        <div class="col-12">
+                            <ul class="actions">
+                                <li><input type="submit" value="Add MusicList" class="primary" /></li>
+                                <li><input type="reset" value="Close" data-dismiss="modal" /></li>
+                            </ul>
+                        </div>
+                        <div class="col-12">
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<th:block th:replace="fragments/scripts"></th:block>
+
+<!-- TODO : ajax로 리스트내 음악들 불러와서 세팅하는거 -->
+<script>
+    function clickMusicList(seq) {
+        $.ajax(
+        )
+    }
+</script>
+
+</body>
+</html>

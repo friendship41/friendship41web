@@ -1,4 +1,4 @@
-package com.friendship41.web.friendship41web;
+package com.friendship41.web;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
