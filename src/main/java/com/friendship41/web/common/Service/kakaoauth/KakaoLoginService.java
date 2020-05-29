@@ -1,8 +1,8 @@
-package com.friendship41.web.song4music.service.kakaoauth;
+package com.friendship41.web.common.Service.kakaoauth;
 
+import com.friendship41.web.common.Service.LoginService;
+import com.friendship41.web.common.Service.MemberService;
 import com.friendship41.web.repository.entity.Member;
-import com.friendship41.web.song4music.service.LoginService;
-import com.friendship41.web.song4music.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,7 +19,8 @@ import java.net.URISyntaxException;
 import java.util.Date;
 
 @Service("KakaoLoginService")
-public class KakaoLoginService implements LoginService {
+public class KakaoLoginService implements LoginService
+{
     @Autowired
     @Qualifier("WebMemberService")
     private MemberService webMemberService;

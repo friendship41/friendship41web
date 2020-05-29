@@ -1,4 +1,4 @@
-package com.friendship41.web.song4music.service;
+package com.friendship41.web.common.Service;
 
 import com.friendship41.web.repository.entity.Member;
 

@@ -18,7 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpSession;
 
 @Controller
-public class indexController
+@RequestMapping(value = "/song4music")
+public class MusicIndexController
 {
     @Autowired
     @Qualifier("WebMusicListService")
@@ -28,13 +29,15 @@ public class indexController
     private MusicService webMusicService;
 
     @RequestMapping(value = "/")
-    public String goToIndexPage(@PageableDefault(sort = "mListSeq", direction = Sort.Direction.DESC, size = 10) Pageable page, HttpSession session, Model model)
+    public String goToMusicIndexPage(
+            @PageableDefault(sort = "mListSeq", direction = Sort.Direction.DESC, size = 10)
+                    Pageable page, HttpSession session, Model model)
     {
         Member member = (Member)session.getAttribute("member");
         Page<MusicList> musicListPage = webMusicListService.getMusicList(member.getMMemberId(), page);
         BlockedPage blockedPage = new BlockedPage(musicListPage);
         model.addAttribute("musicPage", blockedPage);
         model.addAttribute("musicSortList", webMusicService.getAllMusicSort());
-        return "index.html";
+        return "musicManage.html";
     }
 }
