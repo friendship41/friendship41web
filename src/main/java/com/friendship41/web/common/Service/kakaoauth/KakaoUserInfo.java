@@ -1,4 +1,4 @@
-package com.friendship41.web.song4music.service.kakaoauth;
+package com.friendship41.web.common.Service.kakaoauth;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

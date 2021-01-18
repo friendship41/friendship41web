@@ -1,7 +1,7 @@
-package com.friendship41.web.song4music.controller;
+package com.friendship41.web.common.controller;
 
 import com.friendship41.web.repository.entity.Member;
-import com.friendship41.web.song4music.service.LoginService;
+import com.friendship41.web.common.Service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;

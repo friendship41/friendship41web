@@ -1,41 +1,31 @@
 package com.friendship41.web.song4music.controller;
 
-import com.friendship41.web.repository.entity.Music;
-import com.friendship41.web.song4music.service.MusicService;
+import com.friendship41.web.repository.entity.Member;
+import com.friendship41.web.repository.entity.MusicList;
+import com.friendship41.web.song4music.service.MusicListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.List;
+import javax.servlet.http.HttpSession;
 
-@RestController
+@Controller
+@RequestMapping(value = "/song4music")
 public class MusicController
 {
     @Autowired
-    @Qualifier("WebMusicService")
-    private MusicService webMusicService;
+    @Qualifier("WebMusicListService")
+    private MusicListService webMusicListService;
 
-    @GetMapping(value = "/musics")
-    public List<Music> getMusics(@RequestParam("mListSeq") Long mListSeq)
+    @PostMapping(value = "/musics")
+    public String addMusicList(MusicList musicList, HttpSession session)
     {
-        return webMusicService.getMusics(mListSeq);
+        Member member = (Member) session.getAttribute("member");
+        musicList.setMMemberId(member.getMMemberId());
+        System.out.println(musicList);
+        System.out.println(webMusicListService.addMusicList(musicList));
+        return "redirect:/song4music";
     }
-
-    @PostMapping(value = "/music")
-    public Music addMusic(Music music)
-    {
-        try
-        {
-            return webMusicService.addMusicToList(music);
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
 }

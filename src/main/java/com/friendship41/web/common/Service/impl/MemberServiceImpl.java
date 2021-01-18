@@ -1,8 +1,8 @@
-package com.friendship41.web.song4music.service.webimpl;
+package com.friendship41.web.common.Service.impl;
 
 import com.friendship41.web.repository.MemberRepository;
 import com.friendship41.web.repository.entity.Member;
-import com.friendship41.web.song4music.service.MemberService;
+import com.friendship41.web.common.Service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
